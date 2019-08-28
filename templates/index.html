@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ip</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+</head>
+<script>
+    function ip_mask() {
+        post_data = $('#form1').serializeArray();
+        $.ajax({
+            url: "/ipmask",
+            type: "POST",
+            dataType: 'JSON',
+            data: post_data,
+            success: function (data) {
+                $('input[name=uip]').val(data.uip);
+                $('input[name=snm]').val(data.snm);
+                $('input[name=nwadr]').val(data.nwadr);
+                $('input[name=fiuip]').val(data.fiuip);
+                $('input[name=lauip]').val(data.lauip);
+                $('input[name=broip]').val(data.broip);
+            }
+        })
+    }
+    function ip_net() {
+        post_data = $('#form2').serializeArray();
+        $.ajax({
+            url: "/ipnet",
+            type: "POST",
+            dataType: 'JSON',
+            data: post_data,
+            success: function (data) {
+                $('input[name=dec10]').val(data.dec10);
+                $('input[name=hex16]').val(data.hex16);
+            }
+        })
+    }
+</script>
+
+<body>
+    <div align="center" style="margin-top:30px">
+        <form id="form1">
+            <fieldset>
+                <legend>网络和IP地址计算器</legend>
+                <label class="w60 tr">输入IP/掩码</label>
+                <!-- <input type="text" name="ip" value="192.168.0.0" />/
+                    <input type="text" name="bits" value="24" /> -->
+                <input type="text" name="ip" placeholder="192.168.0.0" />/
+                <input type="text" name="bits" placeholder="24" />
+                <button type="button" onclick="ip_mask()">计算</button>
+                <div id="ipadd">
+                    <label>可用IP</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="uip" value="{{ uip }}" />
+                    <label>掩码</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="snm" value="{{ snm }}" />
+                    <label>网络</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="nwadr" value="{{ nwadr }}" />
+                    <label>第一可用</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="fiuip" value="{{ fiuip }}" />
+                    <label>最后可用</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="lauip" value="{{ lauip }}" />
+                    <label>广播</label>
+                    <input type="text" class="Intxt" readonly="" size="10" name="broip" value="{{ broip }}" />
+                </div>
+            </fieldset>
+        </form>
+        <form id="form2">
+            <fieldset>
+                <legend>子网掩码转换器（位点分十进制格式)</legend>
+                <label class="w60 tr">掩码</label>
+                <input type="text" name="bits2" placeholder="24" />
+                <button type="button" onclick="ip_net()">计算</button>
+                <label>Dec十进制</label>
+                <input type="text" name="dec10" />
+                <label>Hex十六进制</label>
+                <input type="text" name="hex16" />
+            </fieldset>
+        </form>
+        
+    </div>
+</body>
+
+</html>

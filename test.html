@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").click(function () {
+                x = $("#form1:").serializeArray();
+                $.each(x, function (i, field) {
+                    $("#results").append(field.name + ":" + field.value + " ");
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form id="form1">
+        <fieldset>
+            <legend>网络和IP地址计算器</legend>
+
+                <label class="w60 tr">输入IP/掩码</label>
+                <input type="text" name="ip" value="192.168.0.0" />/
+                <input type="text" name="bits" value="24" />
+                <button>计算</button>
+                
+
+            <div id="results">结果：</div>
+            
+        </fieldset>
+    </form>
+</body>
+
+</html>
